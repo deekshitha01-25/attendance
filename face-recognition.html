@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Facial Recognition Attendance</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f2f2f2; }
+    header { background: #4CAF50; color: white; padding: 20px; text-align:center; }
+    nav { background: #333; overflow: hidden; }
+    nav a { float: left; display: block; color: white; padding: 14px 16px; text-decoration: none; }
+    nav a:hover { background: #ddd; color: black; }
+    .container { max-width: 900px; margin: 40px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);}
+    video { width: 100%; max-width: 640px; border-radius: 8px; background: black; }
+    #status { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Facial Recognition Attendance</h1>
+  </header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="face-recognition.html">Facial Recognition</a>
+    <a href="qr-scan.html">QR Code Scanner</a>
+    <a href="login.html">Login</a>
+  </nav>
+  <div class="container">
+    <p>Allow access to your webcam. This demo shows the camera feed for facial recognition attendance. (Face recognition logic can be integrated here.)</p>
+    <video id="video" autoplay playsinline></video>
+    <div id="status">Status: Waiting for camera access...</div>
+  </div>
+
+  <script>
+    const video = document.getElementById('video');
+    const status = document.getElementById('status');
+
+    async function startCamera() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        video.srcObject = stream;
+        status.textContent = 'Status: Camera access granted. Ready for facial recognition.';
+        // Placeholder: Facial recognition logic would process the video feed here.
+      } catch (error) {
+        status.textContent = 'Status: Camera access denied or unavailable.';
+      }
+    }
+
+    startCamera();
+  </script>
+</body>
+</html>

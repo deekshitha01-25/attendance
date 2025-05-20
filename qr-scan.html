@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>QR Code Scanner Attendance</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f2f2f2; }
+    header { background: #4CAF50; color: white; padding: 20px; text-align:center; }
+    nav { background: #333; overflow: hidden; }
+    nav a { float: left; display: block; color: white; padding: 14px 16px; text-decoration: none; }
+    nav a:hover { background: #ddd; color: black; }
+    .container { max-width: 900px; margin: 40px auto; background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1);}
+    #reader { width: 100%; max-width: 600px; margin: 0 auto; }
+    #result { margin-top: 20px; font-weight: bold; }
+  </style>
+  <script src="https://unpkg.com/html5-qrcode"></script>
+</head>
+<body>
+  <header>
+    <h1>QR Code Scanner Attendance</h1>
+  </header>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="face-recognition.html">Facial Recognition</a>
+    <a href="qr-scan.html">QR Code Scanner</a>
+    <a href="login.html">Login</a>
+  </nav>
+  <div class="container">
+    <p>Scan your QR code to mark attendance.</p>
+    <div id="reader"></div>
+    <div id="result">Scan result will appear here.</div>
+  </div>
+
+  <script>
+    function onScanSuccess(decodedText, decodedResult) {
+      document.getElementById('result').innerText = `Scan successful: ${decodedText}`;
+      // You can send this data to backend to log attendance.
+      html5QrcodeScanner.clear();
+    }
+
+    function onScanFailure(error) {
+      // console.warn(`QR scan error = ${error}`);
+    }
+
+    let html5QrcodeScanner = new Html5QrcodeScanner(
+      "reader", { fps: 10, qrbox: 250 }, false);
+    html5QrcodeScanner.render(onScanSuccess, onScanFailure);
+  </script>
+</body>
+</html>
